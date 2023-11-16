@@ -12,6 +12,7 @@ class SongModel(Base):
     album_id: Mapped[int] = mapped_column(ForeignKey("albums.id"))
 
     song_artist = relationship("SongArtists", back_populates="song")
+    liked_song = relationship("LikedSongsModel", back_populates="song")
 
 
 class SongArtists(Base):

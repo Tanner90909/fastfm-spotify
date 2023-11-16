@@ -8,3 +8,15 @@ class UserModel(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     name: Mapped[str] = Column(String, default="Name")
+
+    liked_song = relationship("LikedSongsModel", back_populates="user")
+
+class LikedSongsModel(Base):
+    __tablename__ = "likedsongs"
+
+    id: Mapped[int] = mapped_column(primary_key=True, index=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    song_id: Mapped[int] = mapped_column(ForeignKey("songs.id"))
+
+    user = relationship("UserModel", back_populates="liked_song")
+    song = relationship("SongModel", back_populates="liked_song")
