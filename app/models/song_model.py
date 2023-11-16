@@ -11,11 +11,12 @@ class SongModel(Base):
     length_seconds: Mapped[int] = Column(Integer, default="length_seconds")
     album_id: Mapped[int] = mapped_column(ForeignKey("albums.id"))
 
-    song_artist = relationship("SongArtists", back_populates="song")
+    song_artist = relationship("SongArtistsModel", back_populates="song")
     liked_song = relationship("LikedSongsModel", back_populates="song")
+    playlist_song = relationship("PlaylistSongsModel", back_populates="song")
 
 
-class SongArtists(Base):
+class SongArtistsModel(Base):
     __tablename__ = "songartists"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)

@@ -10,6 +10,8 @@ class UserModel(Base):
     name: Mapped[str] = Column(String, default="Name")
 
     liked_song = relationship("LikedSongsModel", back_populates="user")
+    playlist_listener = relationship("PlaylistListenersModel", back_populates="user")
+
 
 class LikedSongsModel(Base):
     __tablename__ = "likedsongs"
