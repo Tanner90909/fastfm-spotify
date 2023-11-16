@@ -2,6 +2,7 @@ from typing import List, Optional
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Boolean, String, ForeignKey, Integer, Column
 from app.models.base_model import Base
+from app.models.artist_model import ArtistModel
 
 class SongModel(Base):
     __tablename__ = "songs"
@@ -11,7 +12,7 @@ class SongModel(Base):
     length_seconds: Mapped[int] = Column(Integer, default="length_seconds")
     album_id: Mapped[int] = mapped_column(ForeignKey("albums.id"))
 
-    song_artist = relationship("SongArtistsModel", back_populates="song")
+    song_artist: Mapped[List["ArtistModel"]] = relationship("SongArtistsModel", back_populates="song")
     liked_song = relationship("LikedSongsModel", back_populates="song")
     playlist_song = relationship("PlaylistSongsModel", back_populates="song")
 
