@@ -13,3 +13,12 @@ def get_all_users(db:Session):
     )
 
     return users_query
+
+def create_new_user(db:Session, u:UserSchema):
+    new_user = UserModel(
+        name = u.name
+    )
+    db.add(new_user)
+    db.commit()
+    db.refresh(new_user)
+    return new_user
