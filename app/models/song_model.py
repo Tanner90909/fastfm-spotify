@@ -1,8 +1,8 @@
 from typing import List, Optional
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Boolean, String, ForeignKey, Integer, Column
-from app.models.artist_model import ArtistModel
-from app.models.playlist_model import PlaylistSongsModel
+# from app.models.artist_model import ArtistModel
+# from app.models.playlist_model import PlaylistSongsModel
 
 class Base(DeclarativeBase):
     pass
