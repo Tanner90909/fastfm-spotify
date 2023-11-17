@@ -1,7 +1,11 @@
 from typing import List, Optional
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Boolean, String, ForeignKey, Integer, Column
-from app.models.base_model import Base
+from app.models.playlist_model import PlaylistListenersModel
+from app.models.song_model import SongModel
+
+class Base(DeclarativeBase):
+    pass
 
 class UserModel(Base):
     __tablename__ = "users"
@@ -9,8 +13,8 @@ class UserModel(Base):
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     name: Mapped[str] = Column(String, default="Name")
 
-    liked_song = relationship("LikedSongsModel", back_populates="user")
-    playlist_listener = relationship("PlaylistListenersModel", back_populates="user")
+    liked_song: Mapped[List["LikedSongsModel"]] = relationship("LikedSongsModel", back_populates="user")
+    playlist_listener: Mapped[List["PlaylistListenersModel"]] = relationship("PlaylistListenersModel", back_populates="user")
 
 
 class LikedSongsModel(Base):
@@ -20,5 +24,5 @@ class LikedSongsModel(Base):
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     song_id: Mapped[int] = mapped_column(ForeignKey("songs.id"))
 
-    user = relationship("UserModel", back_populates="liked_song")
-    song = relationship("SongModel", back_populates="liked_song")
+    user: Mapped[List["UserModel"]] = relationship("UserModel", back_populates="liked_song")
+    song: Mapped[List["SongModel"]] = relationship("SongModel", back_populates="liked_song")

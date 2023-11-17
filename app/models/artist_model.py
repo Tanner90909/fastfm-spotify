@@ -1,10 +1,11 @@
 from typing import List, Optional
-from sqlalchemy.orm import  Mapped, mapped_column, relationship
+from sqlalchemy.orm import  DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Boolean, String, ForeignKey, Integer, Column
-from app.models.base_model import Base
 from app.models.album_model import AlbumModel
 from app.models.song_model import SongModel
 
+class Base(DeclarativeBase):
+    pass
 
 class ArtistModel(Base):
     __tablename__ = "artists"
