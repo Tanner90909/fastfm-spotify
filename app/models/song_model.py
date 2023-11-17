@@ -1,11 +1,10 @@
 from typing import List, Optional
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 from sqlalchemy import Boolean, String, ForeignKey, Integer, Column
+from .base import Base
 # from app.models.artist_model import ArtistModel
 # from app.models.playlist_model import PlaylistSongsModel
 
-class Base(DeclarativeBase):
-    pass
 
 class SongModel(Base):
     __tablename__ = "songs"
@@ -15,9 +14,9 @@ class SongModel(Base):
     length_seconds: Mapped[int] = Column(Integer, default="length_seconds")
     album_id: Mapped[int] = mapped_column(ForeignKey("albums.id"))
 
-    song_artist: Mapped[List["ArtistModel"]] = relationship("SongArtistsModel", back_populates="song")
-    liked_song = relationship("LikedSongsModel", back_populates="song")
-    playlist_song: Mapped[List["PlaylistSongsModel"]] = relationship("PlaylistSongsModel", back_populates="song")
+    song_artist: Mapped[List["SongArtistsModel"]] = relationship(back_populates="song")
+    liked_song: Mapped[List["LikedSongsModel"]] = relationship(back_populates="song")
+    playlist_song: Mapped[List["PlaylistSongsModel"]] = relationship(back_populates="song")
 
 
 class SongArtistsModel(Base):
@@ -27,5 +26,5 @@ class SongArtistsModel(Base):
     song_id: Mapped[int] = mapped_column(ForeignKey("songs.id"))
     artist_id: Mapped[int] = mapped_column(ForeignKey("artists.id"))
 
-    song = relationship("SongModel", back_populates="song_artist")
-    artist = relationship("ArtistModel", back_populates="song_artist")
+    song: Mapped[List["SongModel"]] = relationship(back_populates="song_artist")
+    artist: Mapped[List["ArtistModel"]] = relationship(back_populates="song_artist")

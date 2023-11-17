@@ -2,11 +2,10 @@ from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
-from app.models.album_model import Base, AlbumModel, AlbumArtists
-from app.models.artist_model import ArtistModel
+
 
 from alembic import context
-from app.models.base_model import Base
+from app.models.base import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -21,6 +20,12 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
+from app.models.user_model import UserModel, LikedSongsModel
+from app.models.album_model import AlbumArtistsModel, AlbumModel
+from app.models.artist_model import ArtistModel
+from app.models.playlist_model import PlaylistListenersModel, PlaylistModel, PlaylistSongsModel
+from app.models.song_model import SongArtistsModel,SongModel
+
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
